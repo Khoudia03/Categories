@@ -91,4 +91,80 @@ $categorie  =   [
 
 $categories[] = $categorie;
 
+
+
+
+ // 4: Ajout d'un produit à une categorie
+
+    $categorieExiste =  false;
+    $code = readline("saisir le code :");
+        foreach ($categories as $index => $categorie ) {
+               if (($categorie["code"]) === $code) {
+                    $categorieExiste = true;
+                    break;
+                }
+        } 
+
+
+
+    if ($categorieExiste) {
+      
+        $nomValid = true;
+        do { 
+            
+            $nom = readline("saisir le nom de la categorie : ");
+            if (empty($nom)) {
+                echo "Le nom est obligatoire \n";
+                $nomValid= false;
+            }else{
+                foreach ($categories as  $categorie ) {
+                    if (($categorie["nom"]) === $nom) {
+                        $nomValid = false;
+                        echo "Le nom existe deja! Veuillez choisir un autre \n"; 
+                    }
+                }  
+            }
+        } while (!$nomValid);   
+
+
+        $refValid = true;
+        do { 
+            
+            $reference = readline("saisir la reference : ");
+            if (empty($reference)) {
+                echo "la reference est obligatoire \n";
+                $refValid = false;
+            }else{
+                foreach ($categories as  $categorie ) {
+                    if (($categorie["reference"]) === $reference) {
+                        $refValid = false;
+                        echo "La reference existe deja! Veuillez choisir une autre \n"; 
+                    }
+                }  
+            }
+        } while (!$refValid);  
+
+        do {
+            $prix = (int)readline("saisir le prix : ");
+        } while ($prix > 0);
+        
+        
+        do {
+            $quantite = (int)readline("saisir la quantite : ");
+        } while ($quantite > 0);
+          
+
+        $produit =   [
+            "nom" => $nom,
+            "reference" => $reference,
+            "prix" => $prix,
+            "quantité" => $quantite
+        ] ;
+
+        $categories[$index]["produits"][] = $produit;
+    }else {
+
+        echo " Désolé , la categorie n'existe pas...\n";
+    };
+
 ?>
