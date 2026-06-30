@@ -29,4 +29,13 @@ $categories = [
          ]
 ];
 
+
+// 2 
+
+ foreach ($categories as  $categorie ) {
+    if (count($categorie["produits"]) == 0) {
+         echo $categorie["nom"]."\n";
+    }
+ }
+
 ?>
