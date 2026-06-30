@@ -158,7 +158,7 @@ $categories[] = $categorie;
             "nom" => $nom,
             "reference" => $reference,
             "prix" => $prix,
-            "quantité" => $quantite
+            "quantite" => $quantite
         ] ;
 
         $categories[$index]["produits"][] = $produit;
@@ -166,5 +166,121 @@ $categories[] = $categorie;
 
         echo " Désolé , la categorie n'existe pas...\n";
     };
+
+
+
+
+//5: Ajout categorie en respectant les regle de validation par la reponse de l'utilisateur
+
+
+
+$codeIsValid = true;
+    
+do { 
+        
+    $code = readline("Saisir le code :");
+        if (empty($code)) {
+            echo "Le code est obligatoire \n";
+             $codeIsValid = false;
+        }else{
+            foreach ($categories as  $categorie ) {
+               if (($categorie["code"]) === $code) {
+                    $codeIsValid = false;
+                    echo "Le code existe déjà! Veuillez choisir un autre \n"; 
+                }
+            }  
+        }
+} while (!$codeIsValid);
+    
+
+$nomIsValid = true;
+do { 
+            
+        $nom = readline("Saisir le nom : ");
+        if (empty($nom)) {
+                echo "Le nom est obligatoire \n";
+                $nomIsValid= false;
+        }else{
+                foreach ($categories as  $categorie ) {
+                    if (($categorie["nom"]) === $nom) {
+                        $nomIsValid = false;
+                        echo "Le nom existe déjà! Veuillez saisir un autre \n"; 
+                    }
+                }  
+        }
+} while (!$nomIsValid);
+
+
+$produits = [];
+
+do {
+
+    $nomIsValid = true;
+        do { 
+            
+            $nom = readline("Saisir le nom : ");
+            if (empty($nom)) {
+                echo "Le nom est obligatoire \n";
+                $nomIsValid= false;
+            }else{
+                foreach ($categories as  $categorie ) {
+                    if (($categorie["nom"]) === $nom) {
+                        $nomIsValid = false;
+                        echo "Le nom existe deja! Veuillez saisir un autre \n"; 
+                    }
+                }  
+            }
+        } while (!$nomIsValid);   
+
+
+        $refIsValid = true;
+        do { 
+            
+            $reference = readline("Saisir la reference : ");
+            if (empty($reference)) {
+                echo "La reference est obligatoire \n";
+                $refIsValid = false;
+            }else{
+                foreach ($categories as  $categorie ) {
+                    if (($categorie["reference"]) === $reference) {
+                        $refIsValid = false;
+                        echo "La reference existe deja! Veuillez saisir une autre \n"; 
+                    }
+                }  
+            }
+        } while (!$refIsValid);  
+
+        do {
+            $prix = (int)readline("Saisir le prix : ");
+        } while ($prix > 0);
+        
+        
+        do {
+            $quantite = (int)readline("Saisir la quantite : ");
+        } while ($quantite > 0);
+          
+        $produit =   [
+            "nom" => $nom,
+            "reference" => $reference,
+            "prix" => $prix,
+            "quantite" => $quantite
+        ] ;
+
+      
+
+        $produits[]= $produit;
+
+        $choix = strtolower(readline(" Voulez-vous continuer  oui/non "));
+          
+} while ($choix === "oui");
+    
+
+$categorie  =   [
+            "code" => $code,
+            "nom" => $nom,
+            "produits" =>  $produits 
+];
+
+$categories[] = $categorie;
 
 ?>
