@@ -121,6 +121,82 @@ function afficherCategoriesSansProduit(array $categories): void
 
 
 
+//3:
+function enregistrerCategorie(array &$categories): void
+{
+    $code = saisieChampObligatoireEtUnique(
+        $categories,
+        "Saisir le code : ",
+        "Le code est obligatoire",
+        "code"
+    );
+
+    $nom = saisieChampObligatoireEtUnique(
+        $categories,
+        "Saisir le nom : ",
+        "Le nom est obligatoire",
+        "nom"
+    );
+
+    $categories[] = [
+        "code" => $code,
+        "nom" => $nom,
+        "produits" => []
+    ];
+
+    echo "Catégorie enregistrée.\n";
+}
+
+function saisirProduit(): array
+{
+    $nom = saisieChaine("Nom : ");
+
+    while (!champObligatoire($nom, "Nom obligatoire")) {
+        $nom = saisieChaine("Nom : ");
+    }
+
+    $reference = saisieChaine("Référence : ");
+
+    while (!champObligatoire($reference, "Référence obligatoire")) {
+        $reference = saisieChaine("Référence : ");
+    }
+
+    $prix = saisirEntierPositif("Prix : ");
+
+    $quantite = saisirEntierPositif("Quantité : ");
+
+    return [
+
+        "nom" => $nom,
+        "reference" => $reference,
+        "prix" => $prix,
+        "quantite" => $quantite
+
+    ];
+}
+
+function ajouterProduitCategorie(array &$categories): void
+{
+    $code = saisieChaine("Code catégorie : ");
+
+    $index = rechercheCategorieParCle($categories, "code", $code);
+
+    if ($index === false) {
+
+        echo "Catégorie introuvable.\n";
+        return;
+
+    }
+
+    $produit = saisirProduit();
+
+    $categories[$index]["produits"][] = $produit;
+
+    echo "Produit ajouté.\n";
+}
+
+
+
  
 
 
