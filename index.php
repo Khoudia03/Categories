@@ -196,6 +196,54 @@ function ajouterProduitCategorie(array &$categories): void
 }
 
 
+//4
+function enregistrerCategorieAvecProduits(array &$categories): void
+{
+    $code = saisieChampObligatoireEtUnique(
+        $categories,
+        "Code : ",
+        "Code obligatoire",
+        "code"
+    );
+
+    $nom = saisieChampObligatoireEtUnique(
+        $categories,
+        "Nom : ",
+        "Nom obligatoire",
+        "nom"
+    );
+
+    $produits = [];
+
+    do {
+
+        $produits[] = saisirProduit();
+
+        $choix = strtolower(
+            saisieChaine("Ajouter un autre produit (oui/non) : ")
+        );
+
+    } while ($choix == "oui");
+
+    $categories[] = [
+
+        "code" => $code,
+        "nom" => $nom,
+        "produits" => $produits
+
+    ];
+
+    echo "Catégorie enregistrée.\n";
+}
+
+
+enregistrerCategorie($categories);
+
+ajouterProduitCategorie($categories);
+
+enregistrerCategorieAvecProduits($categories);
+
+
 
  
 
