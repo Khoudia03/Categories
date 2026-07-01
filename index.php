@@ -67,33 +67,45 @@ $categories = [
     return false;
  }
 
- function saisieChampObligatoireEtUnique(array $categories,string $smsSaisie, string $smsError,string $key): string{
-        
-    $valueIsValid = true;
-    do {   
-        $value = saisieChaine($smsSaisie);
-        $valueIsValid = champObligatoire($value,$smsError);
-        if($valueIsValid){     
-            $valueIsValid =rechercheCategorieParCle($categories,$key,$value);
+function saisieChampObligatoireEtUnique(array $categories, string $messageSaisie, string $messageErreur, string $cle): string {
+
+    do {
+
+        $valeur = saisieChaine($messageSaisie);
+
+        if (!champObligatoire($valeur, $messageErreur)) {
+            continue;
         }
-    } while (!$valueIsValid);
-    return $value;
- }
 
- function enregistrerCategorie(): void{
-    global $categories;
-    $code = saisieChampObligatoireEtUnique($categories,"Entrez le code :", "champs obligatoire : ", "code");
-    $nom = saisieChampObligatoireEtUnique($categories,"Entrez le nom :", "champs obligatoire : ", "nom");
+        if (rechercheCategorieParCle($categories, $cle, $valeur) !== false) {
 
-    $categorie  =   [
-            "code" => $code,
-            "nom" => $nom,
-            "produits" => []
-         ];
+            echo ucfirst($cle) . " déjà existant.\n";
+            continue;
 
-    $categories[] = $categorie;
- }
- enregistrerCategorie();
+        }
+
+        return $valeur;
+
+    } while (true);
+
+}
+
+function afficherCategoriesSansProduit(array $categories): void
+{
+    foreach ($categories as $categorie) {
+
+        if (empty($categorie["produits"])) {
+
+            echo $categorie["nom"] . "\n";
+
+        }
+
+    }
+}
+
+
+
+ 
 
 
 ?>
