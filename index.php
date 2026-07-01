@@ -90,21 +90,6 @@ function saisieChampObligatoireEtUnique(array $categories, string $messageSaisie
 
 }
 
-function afficherCategoriesSansProduit(array $categories): void
-{
-    foreach ($categories as $categorie) {
-
-        if (empty($categorie["produits"])) {
-
-            echo $categorie["nom"] . "\n";
-
-        }
-
-    }
-}
-
-//3:
-
 function saisirEntierPositif(string $message): int
 {
     do {
@@ -120,33 +105,19 @@ function saisirEntierPositif(string $message): int
     return $nombre;
 }
 
-function saisirProduit(): array
+function afficherCategoriesSansProduit(array $categories): void
 {
-    $nom = saisieChaine("Nom : ");
+    foreach ($categories as $categorie) {
 
-    while (!champObligatoire($nom, "Nom obligatoire")) {
-        $nom = saisieChaine("Nom : ");
+        if (empty($categorie["produits"])) {
+
+            echo $categorie["nom"] . "\n";
+
+        }
+
     }
-
-    $reference = saisieChaine("Référence : ");
-
-    while (!champObligatoire($reference, "Référence obligatoire")) {
-        $reference = saisieChaine("Référence : ");
-    }
-
-    $prix = saisirEntierPositif("Prix : ");
-
-    $quantite = saisirEntierPositif("Quantité : ");
-
-    return [
-
-        "nom" => $nom,
-        "reference" => $reference,
-        "prix" => $prix,
-        "quantite" => $quantite
-
-    ];
 }
+
 
 
 
