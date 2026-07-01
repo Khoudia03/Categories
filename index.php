@@ -41,7 +41,7 @@ $categories = [
 
 
 
-  // 3: Enregister une nuovelle categorie
+// 3: Enregister une nuovelle categorie
 
 $codeValide = true;
     
@@ -146,12 +146,12 @@ $categories[] = $categorie;
 
         do {
             $prix = (int)readline("saisir le prix : ");
-        } while ($prix > 0);
+        } while ($prix <= 0);
         
         
         do {
             $quantite = (int)readline("saisir la quantite : ");
-        } while ($quantite > 0);
+        } while ($quantite <= 0);
           
 
         $produit =   [
@@ -171,7 +171,6 @@ $categories[] = $categorie;
 
 
 //5: Ajout categorie en respectant les regle de validation par la reponse de l'utilisateur
-
 
 
 $codeIsValid = true;
@@ -252,12 +251,12 @@ do {
 
         do {
             $prix = (int)readline("Saisir le prix : ");
-        } while ($prix > 0);
+        } while ($prix <= 0);
         
         
         do {
             $quantite = (int)readline("Saisir la quantite : ");
-        } while ($quantite > 0);
+        } while ($quantite <= 0);
           
         $produit =   [
             "nom" => $nom,
