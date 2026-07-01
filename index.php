@@ -103,6 +103,51 @@ function afficherCategoriesSansProduit(array $categories): void
     }
 }
 
+//3:
+
+function saisirEntierPositif(string $message): int
+{
+    do {
+
+        $nombre = (int) readline($message);
+
+        if ($nombre <= 0) {
+            echo "Veuillez saisir un nombre positif.\n";
+        }
+
+    } while ($nombre <= 0);
+
+    return $nombre;
+}
+
+function saisirProduit(): array
+{
+    $nom = saisieChaine("Nom : ");
+
+    while (!champObligatoire($nom, "Nom obligatoire")) {
+        $nom = saisieChaine("Nom : ");
+    }
+
+    $reference = saisieChaine("Référence : ");
+
+    while (!champObligatoire($reference, "Référence obligatoire")) {
+        $reference = saisieChaine("Référence : ");
+    }
+
+    $prix = saisirEntierPositif("Prix : ");
+
+    $quantite = saisirEntierPositif("Quantité : ");
+
+    return [
+
+        "nom" => $nom,
+        "reference" => $reference,
+        "prix" => $prix,
+        "quantite" => $quantite
+
+    ];
+}
+
 
 
  
